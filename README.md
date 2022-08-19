@@ -21,20 +21,18 @@
 1. 需要通过企业信息申请所需相关资源
 
    ​	首页需要接入微信支付、关联相关小程序
-
-   ![image-20220819100351753](C:\Users\86188\AppData\Roaming\Typora\typora-user-images\image-20220819100351753.png)
+    ![into](src/main/resources/static/image/image-20220819100351753.png)
+   
 
 ​			获取小程序  **AppId、AppSercet、商户号 MCH_ID 、API lv2 密钥** （自己前往微信支付平台设置的，如下图），并安装  **操作证书**。（此图来源于网络，侵权联系删！！！）
 
 ​			最后，需要在  **产品中心** ==>  **开发配置** 中配置  JSAPI  微信服务器通知接口（支付成功后微信会发送 return_code:SUCCESS 信息到改接口）此项没有配置也可进行微信支付，但微信服务器没有收到回复会持续发送信息
 
-![20170925145901_33411](C:\Users\86188\Desktop\20170925145901_33411.jpg)
+![20170925145901_33411](src/main/resources/static/image/20170925145901_33411.jpg)
 
 ​		建议将开发人员拉入员工账号，操作如下，拉入后即可登录  **微信支付商家助手** 小程序查看账户信息
 
-![image-20220819101641785](C:\Users\86188\AppData\Roaming\Typora\typora-user-images\image-20220819101641785.png)
-
-<img src="C:\Users\86188\Desktop\A2C8D93FA1BC450B84C31A135CDB484A.jpg" alt="A2C8D93FA1BC450B84C31A135CDB484A" style="zoom:25%;" />
+![emploer](src/main/resources/static/image/image-20220819101641785.png)
 
 到这里准备工作就完成了，接下来只需要将本项目导入，就能完成接口请求了。
 
@@ -42,19 +40,19 @@
 
 1. 将本项目内容整合到你的项目当中
 
-2. 配置这些常量信息![image-20220819103017711](C:\Users\86188\AppData\Roaming\Typora\typora-user-images\image-20220819103017711.png)
+2. 配置这些常量信息
+![image-20220819103017711](src/main/resources/static/image/image-20220819103017711.png)
 
 3. 进入WxpayServiceImpl.java 配置 金额 以及商品描述  及支付回调路径，跟在微信支付平台配置的一样（图倒2行）
 
-   ![image-20220819103347435](C:\Users\86188\AppData\Roaming\Typora\typora-user-images\image-20220819103347435.png)
+   ![image-20220819103347435](src/main/resources/static/image/image-20220819103347435.png)
 
  4. controller层使用，仅需在小程序端传入 用户的 **openid** 就可以辣
 
-    ![image-20220819103604928](C:\Users\86188\AppData\Roaming\Typora\typora-user-images\image-20220819103604928.png)
+    ![image-20220819103604928](src/main/resources/static/image/image-20220819103604928.png)
 
 5. 最后 接口返回参数就是调起支付接口的参数，接下来就可以完成支付流程了。
-
-   <img src="C:\Users\86188\AppData\Roaming\Typora\typora-user-images\image-20220819104945582.png" alt="image-20220819104945582" style="zoom:50%;" />
+    ![args](src/main/resources/static/image/image-20220819104945582.png)
 
 #### 项目相关
 
