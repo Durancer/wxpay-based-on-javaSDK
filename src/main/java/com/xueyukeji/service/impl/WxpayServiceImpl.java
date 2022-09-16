@@ -65,4 +65,21 @@ public class WxpayServiceImpl implements WxpayService {
         log.info("payMap:"+payMap);
         return payMap;
     }
+
+    @Override
+    public Map<String, String> qrcode(String ip) throws Exception {
+        MyWXPayConfig myConfig=new MyWXPayConfig();
+        WXPay wxPay=new WXPay(myConfig);
+
+        //根据官方文档 必填值封装数据
+        Map<String,String> map = new HashMap<>();
+        map.put("body", "布踏科技色卡");
+        map.put("out_trade_no", UUID.randomUUID().toString().replaceAll("-",""));
+        map.put("total_fee", "1");
+        map.put("spbill_create_ip", ip);
+        map.put("notify_url", "http://www.buta.vip/pay/success");
+        map.put("trade_type", "NATIVE");
+
+        return wxPay.unifiedOrder(map);
+    }
 }

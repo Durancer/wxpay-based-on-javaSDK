@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #qrcode {
+            width:160px;
+            height:160px;
+            margin-top:15px;
+        }
+    </style>
+</head>
+<body>
+<div id="qrcode"></div>
+<script type="text/javascript">
+    new QRCode(document.getElementById("qrcode"), "weixin://wxpay/bizpayurl?pr=4asdUPyzz");
+</script>
+
+</body>
+</html>

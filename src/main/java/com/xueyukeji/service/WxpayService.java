@@ -12,4 +12,6 @@ public interface WxpayService {
      * @throws Exception
      */
     Map<String,String> wxpay(String openid, String ip) throws Exception;
+
+    Map<String,String> qrcode(String ip) throws Exception;
 }

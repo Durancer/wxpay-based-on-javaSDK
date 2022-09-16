@@ -39,6 +39,26 @@ public class WxPayController {
         return wxpayService.wxpay(openid,ip);
     }
 
+    @GetMapping("qrcode")
+    public Map<String,String> getQRcode(HttpServletRequest request) throws Exception {
+        //获取请求ip, service中需要
+        String ip = request.getHeader("x-forwarded-for");
+        if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)){
+            ip = request.getHeader("Proxy-Client-IP");
+        }
+        if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)){
+            ip = request.getHeader("WL-Client-IP");
+        }
+        if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)){
+            ip = request.getRemoteAddr();
+        }
+        if(ip.indexOf(",") != -1){
+            String[] ips = ip.split(",");
+            ip = ips[0].trim();
+        }
+        return wxpayService.qrcode(ip);
+    }
+
 
     /**
      * 接收支付成功的接口，返回 return_code为 SUCCESS
