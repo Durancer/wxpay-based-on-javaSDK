@@ -19,6 +19,12 @@ public class WxPayController {
     @Autowired
     private WxpayService wxpayService;
 
+    /**
+     * 小程序支付
+     * @param request
+     * @param openid
+     * @return
+     */
     @PostMapping("wxpay")
     public Map<String,String> pay(HttpServletRequest request,String openid) throws Exception {
         //获取请求ip, service中需要
@@ -39,6 +45,12 @@ public class WxPayController {
         return wxpayService.wxpay(openid,ip);
     }
 
+
+    /**
+     * 生成二维码支付
+     * @param request
+     * @return
+     */
     @GetMapping("qrcode")
     public Map<String,String> getQRcode(HttpServletRequest request) throws Exception {
         //获取请求ip, service中需要

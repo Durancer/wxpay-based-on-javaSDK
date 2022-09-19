@@ -73,12 +73,12 @@ public class WxpayServiceImpl implements WxpayService {
 
         //根据官方文档 必填值封装数据
         Map<String,String> map = new HashMap<>();
-        map.put("body", "布踏科技色卡");
+        map.put("body", "");   //商品描述
         map.put("out_trade_no", UUID.randomUUID().toString().replaceAll("-",""));
-        map.put("total_fee", "1");
+        map.put("total_fee", "1");   //价格  1表示1分
         map.put("spbill_create_ip", ip);
-        map.put("notify_url", "http://www.buta.vip/pay/success");
-        map.put("trade_type", "NATIVE");
+        map.put("notify_url", "");   //支付成功通知地址
+        map.put("trade_type", "NATIVE");  //支付方式，选择扫码支付
 
         return wxPay.unifiedOrder(map);
     }
