@@ -5,7 +5,10 @@ import com.xueyukeji.constant.WechatConstant;
 
 import java.io.InputStream;
 
-public class MyWXPayConfig extends WXPayConfig{
+/**
+ * @author durance
+ */
+public class MyWxPayConfig extends WXPayConfig{
 
 
     @Override

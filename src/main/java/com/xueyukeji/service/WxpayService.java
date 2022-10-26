@@ -2,6 +2,9 @@ package com.xueyukeji.service;
 
 import java.util.Map;
 
+/**
+ * @author durance
+ */
 public interface WxpayService {
 
     /**
@@ -13,5 +16,12 @@ public interface WxpayService {
      */
     Map<String,String> wxpay(String openid, String ip) throws Exception;
 
+    /**
+     * 二维码支付
+     * @param ip 传入ip地址
+     * @return 二维码转换码
+     * @throws Exception
+     */
     Map<String,String> qrcode(String ip) throws Exception;
+
 }

@@ -11,35 +11,41 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import static com.xueyukeji.constant.WechatConstant.SUCCESS_NOTIFY;
+
+/**
+ * @author durance
+ */
 @Slf4j
 @Service
 public class WxpayServiceImpl implements WxpayService {
+
     @Override
     public Map<String, String> wxpay(String openid,String ip) throws Exception {
         //1、拼接请求头
         Map<String,String> paraMap = new HashMap<String, String>();
-        paraMap.put("body","");  //商品描述
+        //商品描述
+        paraMap.put("body","");
         paraMap.put("openid",openid);
-        paraMap.put("out_trade_no", UUID.randomUUID().toString().replaceAll("-",""));  //随机字符串
+        //随机字符串
+        paraMap.put("out_trade_no", UUID.randomUUID().toString().replaceAll("-",""));
         paraMap.put("spbill_create_ip",ip);
-        paraMap.put("total_fee","100");  // 1表示1分  100 表示 1元
-        paraMap.put("trade_type","JSAPI");  //支付类型
+        // 1表示1分  100 表示 1元
+        paraMap.put("total_fee","100");
+        //支付类型
+        paraMap.put("trade_type","JSAPI");
 
 
-        //2、创建wxpay对象，用于支付请求
-        final String SUCCESS_NOTIFY = "http://localhost:8080/pay/success"; // 回调路径，以部署服务器之后的路径为准
-        boolean useSandbox = false; //是否使用沙箱环境
-        WXPayConfig wxPayConfig = new MyWXPayConfig();
+        // 2、创建wxpay对象，用于支付请求
+        //是否使用沙箱环境
+        boolean useSandbox = false;
+        WXPayConfig wxPayConfig = new MyWxPayConfig();
         WXPay wxPay = new WXPay(wxPayConfig,SUCCESS_NOTIFY,false,useSandbox);
-
-        //3、发送请求
+        // 3、发送请求
         Map<String, String> map = wxPay.unifiedOrder(wxPay.fillRequestData(paraMap), 15000, 15000);
-
-        //4、统一下单接口，返回预支付id
+        // 4、统一下单接口，返回预支付id
         String prepayID = map.get("prepay_id");
         System.out.println("预支付id 为"+prepayID);
-
-
         // 整合返回信息
         Map<String,String> payMap = new HashMap<String ,String>();
         payMap.put("appId", WechatConstant.APPID);
@@ -51,8 +57,7 @@ public class WxpayServiceImpl implements WxpayService {
             payMap.put("signType",WXPayConstants.HMACSHA256);
         }
         payMap.put("package","prepay_id="+prepayID);
-
-        //5、将上述包装进行key=value形式加密
+        // 5、将上述包装进行key=value形式加密
         String paySign = null;
         if(useSandbox){
             paySign = WXPayUtil.generateSignature(payMap,WechatConstant.MCH_KEY,WXPayConstants.SignType.MD5);
@@ -60,7 +65,6 @@ public class WxpayServiceImpl implements WxpayService {
             paySign = WXPayUtil.generateSignature(payMap,WechatConstant.MCH_KEY,WXPayConstants.SignType.HMACSHA256);
         }
         payMap.put("paySign",paySign);
-
         //6、返回这些参数
         log.info("payMap:"+payMap);
         return payMap;
@@ -68,18 +72,21 @@ public class WxpayServiceImpl implements WxpayService {
 
     @Override
     public Map<String, String> qrcode(String ip) throws Exception {
-        MyWXPayConfig myConfig=new MyWXPayConfig();
+        MyWxPayConfig myConfig=new MyWxPayConfig();
         WXPay wxPay=new WXPay(myConfig);
-
         //根据官方文档 必填值封装数据
         Map<String,String> map = new HashMap<>();
-        map.put("body", "");   //商品描述
+        //商品描述
+        map.put("body", "");
         map.put("out_trade_no", UUID.randomUUID().toString().replaceAll("-",""));
-        map.put("total_fee", "1");   //价格  1表示1分
+        //价格  1表示1分
+        map.put("total_fee", "1");
         map.put("spbill_create_ip", ip);
-        map.put("notify_url", "");   //支付成功通知地址
-        map.put("trade_type", "NATIVE");  //支付方式，选择扫码支付
-
+        //支付成功通知地址
+        map.put("notify_url", SUCCESS_NOTIFY);
+        //支付方式，选择扫码支付
+        map.put("trade_type", "NATIVE");
         return wxPay.unifiedOrder(map);
     }
+
 }

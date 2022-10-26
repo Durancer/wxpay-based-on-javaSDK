@@ -1,6 +1,5 @@
 package com.xueyukeji.controller;
 
-
 import com.xueyukeji.service.WxpayService;
 import com.xueyukeji.wxpaysdk.WXPayUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
+
+/**
+ * @author durance
+ */
 @RestController
 @RequestMapping("pay")
 @Slf4j
@@ -21,9 +24,9 @@ public class WxPayController {
 
     /**
      * 小程序支付
-     * @param request
-     * @param openid
-     * @return
+     * @param request 请求体
+     * @param openid 用户openid
+     * @return 调起支付所需参数
      */
     @PostMapping("wxpay")
     public Map<String,String> pay(HttpServletRequest request,String openid) throws Exception {
@@ -45,10 +48,9 @@ public class WxPayController {
         return wxpayService.wxpay(openid,ip);
     }
 
-
     /**
      * 生成二维码支付
-     * @param request
+     * @param request 请求体
      * @return
      */
     @GetMapping("qrcode")
@@ -71,11 +73,10 @@ public class WxPayController {
         return wxpayService.qrcode(ip);
     }
 
-
     /**
      * 接收支付成功的接口，返回 return_code为 SUCCESS
      * 如果没有这个接口，微信服务器会隔一段时间通知一次
-     * @param request
+     * @param request 请求题
      * @return
      */
     @GetMapping("success")
