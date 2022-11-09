@@ -17,7 +17,7 @@
 #### 使用条件
 
 1. 需要企业单位才能使用，个人不行，因为需要申请对应的商户号、商户密钥等信息
-2. 需要有一定 **Springboot** 或 **SSM** 基础，能看懂、
+2. 有一定 **Springboot** 基础
 3. 仅使用 修改常量类相关的信息 及 serviceimpl 实现的 商品相关的信息即可使用
 
 
@@ -63,6 +63,6 @@
 如果是在微信开发者工具里做测试时，接口调起是提供扫码便于测试。真机调试时就是正常的支付。
 #### 项目相关
 
-- 项目地址：https://gitee.com/ITzhboy/wxpay-based-on-javaSDK
-- 作者主页：https://gitee.com/ITzhboy/    https://github.com/ITzhboy/
+- 项目地址：https://gitee.com/durancer/wxpay-based-on-javaSDK
+- 作者主页：https://gitee.com/durancer    https://github.com/durancer
 - 有相关问题可以发表 issue 或 评论
