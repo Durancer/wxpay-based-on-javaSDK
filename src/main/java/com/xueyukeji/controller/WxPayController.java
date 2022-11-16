@@ -1,6 +1,7 @@
 package com.xueyukeji.controller;
 
 import com.xueyukeji.service.WxpayService;
+import com.xueyukeji.utils.ConvertUtils;
 import com.xueyukeji.wxpaysdk.WXPayUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,10 +82,37 @@ public class WxPayController {
      */
     @GetMapping("success")
     public String success(HttpServletRequest request,@RequestBody String return_code) throws Exception {
-        Map<String,String> result = new HashMap<>();
+        // 支付成功后微信讲通知我们订单相关信息，如下所示
+
+        // <xml>
+        //     <appid><![CDATA[wx8397f8696b538317]]></appid>
+        //     <bank_type><![CDATA[CFT]]></bank_type>
+        //     <cash_fee><![CDATA[1]]></cash_fee>
+        //     <fee_type><![CDATA[CNY]]></fee_type>
+        //     <is_subscribe><![CDATA[N]]></is_subscribe>
+        //     <mch_id><![CDATA[1473426802]]></mch_id>
+        //     <nonce_str><![CDATA[c6bea293399a40e0a873df51e667f45a]]></nonce_str>
+        //     <openid><![CDATA[oNpSGwbtNBQROpN_dL8WUZG3wRkM]]></openid>
+        //     <out_trade_no><![CDATA[1553063775279]]></out_trade_no>
+        //     <result_code><![CDATA[SUCCESS]]></result_code>
+        //     <return_code><![CDATA[SUCCESS]]></return_code>
+        //     <sign><![CDATA[DD4E5DF5AF8D8D8061B0B8BF210127DE]]></sign>
+        //     <time_end><![CDATA[20190320143646]]></time_end>
+        //     <total_fee>1</total_fee>
+        //     <trade_type><![CDATA[NATIVE]]></trade_type>
+        //     <transaction_id><![CDATA[4200000248201903206581106357]]></transaction_id>
+        // </xml>
+
+        // 获取微信带来的订单信息
+        String xml = ConvertUtils.convertToString(request.getInputStream());
+        Map<String, String> orderMap = WXPayUtil.xmlToMap(xml);
+        System.out.println("orderMap = " + orderMap);
+        String out_trade_no = orderMap.get("out_trade_no");
+
+        Map<String, String> result = new HashMap<>();
         if ("SUCCESS".equals(return_code)) {
-            result.put("return_code","SUCCESS");
-            result.put("return_msg","OK");
+            result.put("return_code", "SUCCESS");
+            result.put("return_msg", "OK");
         }
         log.info(return_code);
         return WXPayUtil.mapToXml(result);
