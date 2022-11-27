@@ -58,6 +58,8 @@
 
 5. 最后 接口返回参数就是调起支付接口的参数，接下来就可以完成支付流程了。
     ![args](https://gitee.com/Durancer/wxpay-based-on-javaSDK/raw/master/src/main/resources/static/image/image-20220819104945582.png)
+    
+（如果是扫码支付的情况，由于我们在web端没有办法判断用户是否进行了支付，所以需要通过微信服务器通知进行回调之后的逻辑处理，可以参考下方我的博客）
 
 
 如果是在微信开发者工具里做测试时，接口调起是提供扫码便于测试。真机调试时就是正常的支付。
@@ -65,4 +67,5 @@
 
 - 项目地址：https://gitee.com/durancer/wxpay-based-on-javaSDK
 - 作者主页：https://gitee.com/durancer    https://github.com/durancer
+- 扫码支付回调处理：https://blog.csdn.net/programming132/article/details/126942491?spm=1001.2014.3001.5501
 - 有相关问题可以发表 issue 或 评论
