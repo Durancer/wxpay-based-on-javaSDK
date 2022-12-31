@@ -26,18 +26,18 @@
 1. 需要通过企业信息申请所需相关资源
 
    ​	首页需要接入微信支付、关联相关小程序
-    ![into](src/main/resources/static/image/image-20220819100351753.png)
+    ![into](https://gitee.com/Durancer/wxpay-based-on-javaSDK/raw/master/src/main/resources/static/image/image-20220819100351753.png)
    
 
 ​			获取小程序  **AppId、AppSercet、商户号 MCH_ID 、API lv2 密钥** （自己前往微信支付平台设置的，如下图），并安装  **操作证书**。（此图来源于网络，侵权联系删！！！）
 
 ​			最后，需要在  **产品中心** ==>  **开发配置** 中配置  JSAPI  微信服务器通知接口（支付成功后微信会发送 return_code:SUCCESS 信息到改接口）此项没有配置也可进行微信支付，但微信服务器没有收到回复会持续发送信息
 
-![20170925145901_33411](src/main/resources/static/image/20170925145901_33411.jpg)
+![20170925145901_33411](https://gitee.com/Durancer/wxpay-based-on-javaSDK/raw/master/src/main/resources/static/image/20170925145901_33411.jpg)
 
 ​		建议将开发人员拉入员工账号，操作如下，拉入后即可登录  **微信支付商家助手** 小程序查看账户信息
 
-![emploer](src/main/resources/static/image/image-20220819101641785.png)
+![emploer](https://gitee.com/Durancer/wxpay-based-on-javaSDK/raw/master/src/main/resources/static/image/image-20220819101641785.png)
 
 到这里准备工作就完成了，接下来只需要将本项目导入，就能完成接口请求了。
 
@@ -46,18 +46,20 @@
 1. 将本项目内容整合到你的项目当中
 
 2. 配置这些常量信息
-![image-20220819103017711](src/main/resources/static/image/image-20220819103017711.png)
+![image-20220819103017711](https://gitee.com/Durancer/wxpay-based-on-javaSDK/raw/master/src/main/resources/static/image/image-20220819103017711.png)
 
 3. 进入WxpayServiceImpl.java 配置 金额 以及商品描述  及支付回调路径，跟在微信支付平台配置的一样（图倒2行）
 
-   ![image-20220819103347435](src/main/resources/static/image/image-20220819103347435.png)
+   ![image-20220819103347435](https://gitee.com/Durancer/wxpay-based-on-javaSDK/raw/master/src/main/resources/static/image/image-20220819103347435.png)
 
  4. controller层使用，仅需在小程序端传入 用户的 **openid** 就可以辣
 
-    ![image-20220819103604928](src/main/resources/static/image/image-20220819103604928.png)
+    ![image-20220819103604928](https://gitee.com/Durancer/wxpay-based-on-javaSDK/raw/master/src/main/resources/static/image/image-20220819103604928.png)
 
 5. 最后 接口返回参数就是调起支付接口的参数，接下来就可以完成支付流程了。
-    ![args](src/main/resources/static/image/image-20220819104945582.png)
+    ![args](https://gitee.com/Durancer/wxpay-based-on-javaSDK/raw/master/src/main/resources/static/image/image-20220819104945582.png)
+    
+（如果是扫码支付的情况，由于我们在web端没有办法判断用户是否进行了支付，所以需要通过微信服务器通知进行回调之后的逻辑处理，可以参考下方我的博客）
 
 
 如果是在微信开发者工具里做测试时，接口调起是提供扫码便于测试。真机调试时就是正常的支付。
@@ -65,4 +67,5 @@
 
 - 项目地址：https://gitee.com/durancer/wxpay-based-on-javaSDK
 - 作者主页：https://gitee.com/durancer    https://github.com/durancer
+- 扫码支付回调处理：https://blog.csdn.net/programming132/article/details/126942491?spm=1001.2014.3001.5501
 - 有相关问题可以发表 issue 或 评论
