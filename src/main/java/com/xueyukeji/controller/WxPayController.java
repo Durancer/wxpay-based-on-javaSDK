@@ -24,9 +24,10 @@ public class WxPayController {
     private WxpayService wxpayService;
 
     /**
-     * 小程序支付
+     * JSAPI调起支付
+     *
      * @param request 请求体
-     * @param openid 用户openid
+     * @param openid  用户openid
      * @return 调起支付所需参数
      */
     @PostMapping("wxpay")
@@ -51,8 +52,9 @@ public class WxPayController {
 
     /**
      * 生成二维码支付
+     *
      * @param request 请求体
-     * @return
+     * @return 二维码订单相关信息
      */
     @GetMapping("qrcode")
     public Map<String,String> getQRcode(HttpServletRequest request) throws Exception {
@@ -77,15 +79,16 @@ public class WxPayController {
     /**
      * 接收支付成功的接口，返回 return_code为 SUCCESS
      * 如果没有这个接口，微信服务器会隔一段时间通知一次
+     *
      * @param request 请求题
-     * @return
+     * @return 响应结果
      */
     @GetMapping("success")
-    public String success(HttpServletRequest request,@RequestBody String return_code) throws Exception {
+    public String success(HttpServletRequest request, @RequestBody String returnCode) throws Exception {
         // 支付成功后微信讲通知我们订单相关信息，如下所示
 
         // <xml>
-        //     <appid><![CDATA[wx8397f8696b538317]]></appid>
+        //     <appid><![CDATA[wx8397f8696bxxxxxx]]></appid>
         //     <bank_type><![CDATA[CFT]]></bank_type>
         //     <cash_fee><![CDATA[1]]></cash_fee>
         //     <fee_type><![CDATA[CNY]]></fee_type>
@@ -106,15 +109,17 @@ public class WxPayController {
         // 获取微信带来的订单信息
         String xml = ConvertUtils.convertToString(request.getInputStream());
         Map<String, String> orderMap = WXPayUtil.xmlToMap(xml);
-        System.out.println("orderMap = " + orderMap);
-        String out_trade_no = orderMap.get("out_trade_no");
+        // 拿到订单号，进行我们需要的业务逻辑，如：修改改订单状态为已支付
+        String outTradeNo = orderMap.get("out_trade_no");
+        // todo 订单相关的业务逻辑
+        log.info("订单号为{}，完成了支付", outTradeNo);
 
+        // 响应微信服务器
         Map<String, String> result = new HashMap<>();
-        if ("SUCCESS".equals(return_code)) {
+        if ("SUCCESS".equals(returnCode)) {
             result.put("return_code", "SUCCESS");
             result.put("return_msg", "OK");
         }
-        log.info(return_code);
         return WXPayUtil.mapToXml(result);
     }
 

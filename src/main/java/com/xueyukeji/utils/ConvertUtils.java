@@ -6,14 +6,16 @@ import java.io.InputStream;
 
 /**
  * 转换工具类
+ *
+ * @author durance
  */
 public class ConvertUtils {
 
     /**
      * 输入流转换为xml字符串
      *
-     * @param inputStream
-     * @return
+     * @param inputStream 输入流
+     * @return 转化结果
      */
     public static String convertToString(InputStream inputStream) throws IOException {
         ByteArrayOutputStream outSteam = new ByteArrayOutputStream();
