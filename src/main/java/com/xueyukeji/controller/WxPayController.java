@@ -79,6 +79,8 @@ public class WxPayController {
     /**
      * 接收支付成功的接口，返回 return_code为 SUCCESS
      * 如果没有这个接口，微信服务器会隔一段时间通知一次
+     * JSPAI 支付在JS中可以进行回调，可以简单通知微信服务器成功支付，也可直接处理
+     * native 扫码支付需要在此回调中处理对应的业务逻辑，和JSAPI支付可以有两个不同的回调地址
      *
      * @param request 请求题
      * @return 响应结果

@@ -83,6 +83,7 @@ public class WxpayServiceImpl implements WxpayService {
         map.put("total_fee", "1");
         map.put("spbill_create_ip", ip);
         //支付成功通知地址
+        // todo 扫码支付的回调地址可以和JSAPI不相同，来处理对应的回调逻辑
         map.put("notify_url", SUCCESS_NOTIFY);
         //支付方式，选择扫码支付
         map.put("trade_type", "NATIVE");
