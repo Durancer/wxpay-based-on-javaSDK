@@ -1,2 +1,9 @@
 server:
    port: 8080
+
+wxpay:
+   MCH_ID:     # 商户号
+   MCH_KEY:     #商户密钥
+   APPID:      # 程序 appId
+   SECRET:        # 程序密钥
+   SUCCESS_NOTIFY:    # 支付成功回调地址

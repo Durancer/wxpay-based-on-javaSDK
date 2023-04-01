@@ -1,36 +1,60 @@
 package com.xueyukeji.constant;
 
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * 常量类
  * 配置基本信息
  * @author durance
  */
+@Configuration
+@ConfigurationProperties(prefix = "wxpay")
 public class WechatConstant {
 
     /**
      * 商户号
      */
-    public final static String MCH_ID = "";
+    public static String MCH_ID = "";
 
     /**
      * API v2 密钥
      */
-    public final static String MCH_KEY = "";
+    public static String MCH_KEY = "";
 
     /**
-     *  小程序 appId
+     * 小程序 appId
      */
-    public final static String APPID = "";
+    public static String APPID = "";
 
     /**
-     *  小程序 app secret
+     * 小程序 app secret
      */
-    public final static String SECRET = "";
+    public static String SECRET = "";
 
     /**
-     *  支付成功后回调通知地址
+     * 支付成功后回调通知地址
      */
-    public static final String SUCCESS_NOTIFY = "";
+    public static String SUCCESS_NOTIFY = "";
+
+    public static void setMchId(String mchId) {
+        MCH_ID = mchId;
+    }
+
+    public static void setMchKey(String mchKey) {
+        MCH_KEY = mchKey;
+    }
+
+    public static void setAPPID(String APPID) {
+        WechatConstant.APPID = APPID;
+    }
+
+    public static void setSECRET(String SECRET) {
+        WechatConstant.SECRET = SECRET;
+    }
+
+    public static void setSuccessNotify(String successNotify) {
+        SUCCESS_NOTIFY = successNotify;
+    }
 
 }
