@@ -37,23 +37,23 @@ public class WechatConstant {
      */
     public static String SUCCESS_NOTIFY = "";
 
-    public static void setMchId(String mchId) {
+    public void setMchId(String mchId) {
         MCH_ID = mchId;
     }
 
-    public static void setMchKey(String mchKey) {
+    public void setMchKey(String mchKey) {
         MCH_KEY = mchKey;
     }
 
-    public static void setAPPID(String APPID) {
+    public void setAPPID(String APPID) {
         WechatConstant.APPID = APPID;
     }
 
-    public static void setSECRET(String SECRET) {
+    public void setSECRET(String SECRET) {
         WechatConstant.SECRET = SECRET;
     }
 
-    public static void setSuccessNotify(String successNotify) {
+    public void setSuccessNotify(String successNotify) {
         SUCCESS_NOTIFY = successNotify;
     }
 
